@@ -18,7 +18,7 @@
     margin: 3px;
 }
 .header li{
-    padding:20px 140px;
+    padding:20px 100px;
 }
 .header li a{
     color: white;
@@ -72,3 +72,21 @@ span{
     margin: -40px;
 }
 /*End Sign Up Page Style*/
+
+/*START PROFILE PAGE STYLE*/
+.profile{
+    max-width: 500px;
+    margin: 20px auto;
+    background-color: rgb(223, 221, 218);
+}
+.profile h2{
+    text-align: center;
+    margin: 30px 0;
+    padding: 10px 10px;
+}
+.profile p{
+    margin: 20px;
+    background-color: rgb(235, 231, 231);
+    padding: 30px;
+}
+/*END PROFILE PAGE STYLE*/
