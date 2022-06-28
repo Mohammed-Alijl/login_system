@@ -47,7 +47,7 @@ function isEntryEmpty($username, $email, $pass, $conf_pass): string
  */
 function invalidUsername($username): bool
 {
-    if (!preg_match("/^[A-Za-z]{1}[A-Za-z0-9_]{5,25}/", $username))
+    if (!preg_match("/^[A-Za-z]{1}[A-Za-z0-9_\s]{5,25}/", $username))
         return true;
     else
         return false;
