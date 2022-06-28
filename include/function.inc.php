@@ -1,0 +1,186 @@
+<?php
+//=====================================================
+//==FILE HAVE ALL FUNCTION TO HANDEL ERRORS IN FORMS===
+//=====================================================
+
+require("login.inc.php");
+
+/**
+ * function to filter data
+ * @param string $data the data want to filter
+ * @return string filter data
+ */
+function test_input($data): string
+{
+    htmlspecialchars($data);
+    trim($data);
+    stripslashes($data);
+    return $data;
+}
+
+/**
+ * function to make sure if the data is empty or not
+ * @param string $username make sure the username is empty or not
+ * @param string $email make sure the email is empty or not
+ * @param string $pass make sure the password is empty or not
+ * @param string $conf_pass make sure the confirm password is empty or not
+ * @return string return who is empty
+ */
+function isEntryEmpty($username, $email, $pass, $conf_pass): string
+{
+    $result = "";
+    if (empty($username))
+        $result .= "empUsername";
+    if (empty($email))
+        $result .= "empEmail";
+    if (empty($pass))
+        $result .= "empPass";
+    if (empty($conf_pass))
+        $result .= "empConf_pass";
+    return $result;
+}
+
+/**
+ * function to check valid and invalid username
+ * @param string $username the username to check is valid or not
+ * @return true|false
+ */
+function invalidUsername($username)
+{
+    if (!preg_match("/^[A-Za-z]{1}[A-Za-z0-9]{5,25}/", $username))
+        return true;
+    else
+        return false;
+}
+
+/**
+ * function to check valid and invalid email
+ * @param string $email the email to check is valid or not
+ * @return true|false
+ */
+function invalidEmail($email)
+{
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        return true;
+    else
+        return false;
+}
+
+/**
+ * function to check valid and invalid username
+ * @param string $pass the password to check is valid or not
+ * @return true|false
+ */
+function invalidpass($pass)
+{
+    if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $pass))
+        return true;
+    else return false;
+}
+
+/**
+ * function to check if email is exist on database or not
+ * @param object $connect_db the database connection
+ * @param string $email the email to check is exist in database or not
+ * @return true|false
+ */
+function emailExist($connect_db, $email)
+{
+    $sql = "SELECT email FROM users WHERE email=?";
+    $stmt = $connect_db->prepare($sql);
+    $stmt->execute([$email]);
+    if ($stmt->fetch(PDO::FETCH_ASSOC))
+        return true;
+    else
+        return false;
+}
+
+/**
+ * function to check username is exist on database or not
+ * @param object $connect_db the database connection
+ * @param string $username the username to check is exist in database or not
+ * @return true|false
+ **/
+function userExist($connect_db, $username)
+{
+    $sql = "SELECT username FROM users WHERE username=?";
+    $stmt = $connect_db->prepare($sql);
+    $stmt->execute([$username]);
+    if ($stmt->fetch(PDO::FETCH_ASSOC))
+        return true;
+    else return false;
+}
+
+/**
+ * function to check if password and his confirm is equal or not
+ * @param string $pass the main password
+ * @param string $conf_pass the confirm password
+ * @return true|false
+ **/
+function passMatch($pass, $conf_pass)
+{
+    if ($pass === $conf_pass)
+        return true;
+    else return false;
+}
+
+/**
+ * function to create new user
+ * @param object $connect_db the database connection
+ * @param string $username the username for new user
+ * @param string $email the email for new user
+ * @param string $pass the password for new user
+ */
+function createUser($connect_db, $username, $email, $pass)
+{
+    $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
+    $stmt = $connect_db->prepare($sql);
+    $stmt->execute([$username, $email, $hash_pass]);
+}
+
+/**
+ * function to check if username or password is empty
+ * @param string $username_email check if username and email filed is empty
+ * @param string $pass check if password filed is empty
+ * @return string who empty
+ */
+function loginEmpty($username_email, $pass): string
+{
+    $result = "";
+    if (empty($username_email))
+        $result .= "empUsername_email";
+    if (empty($pass))
+        $result .= "empPass";
+    return $result;
+}
+
+/**
+ * function to check is password is true or not
+ * @param object $connect_db the database connection
+ * @param string $username_email the username or email that will check the password for him
+ * @param string $pass the password will check is true or not
+ * @return bool the password is true or not
+ */
+function checkPass($connect_db, $username_email, $pass)
+{
+    $sql = "SELECT password FROM users WHERE username=? OR email=?";
+    $stmt = $connect_db->prepare($sql);
+    $stmt->execute([$username_email, $username_email]);
+    $user_pass = $stmt->fetch(PDO::FETCH_ASSOC);
+    $checkPwd = password_verify($pass,$user_pass['password']);
+    return $checkPwd;
+}
+
+/**
+ * function to initialize session
+ * @param 
+ */
+function initSession($connect_db,$username_email){
+    session_start();
+    $sql = "SELECT user_id FROM users WHERE username=? or email=?";
+    $stmt = $connect_db->prepare($sql);
+    $stmt->execute([$username_email,$username_email]);
+    $id = $stmt->fetch(PDO::FETCH_ASSOC);
+    $_SESSION['id'] = $id['user_id'];
+}

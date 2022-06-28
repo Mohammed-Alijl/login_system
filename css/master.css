@@ -1,0 +1,74 @@
+/*Start Global Style*/
+*{
+    padding:0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container{
+    width: 90%;
+    margin:0 auto;
+}
+/*End Global Style*/
+/*Start Header Page Style*/
+.header{
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    list-style: none;
+    margin: 3px;
+}
+.header li{
+    padding:20px 140px;
+}
+.header li a{
+    color: white;
+    font-size: large;
+    text-decoration: none;
+    font-weight: bold;
+}
+.header li:hover{
+    color: red;
+    cursor: pointer;
+    border-top: red solid 4px;
+}
+/*End Header Page Style*/
+
+/*Start Sign Up Page Style*/
+.sign_up{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+}
+form h2{
+    font-weight: bolder;
+    margin: 20px auto;
+    font-size: 40px;
+    padding-left: 180px;
+}
+form input{
+    padding: 10px;
+    margin: 3px 100px;
+    width: 100%;
+}
+form .submit{
+    font-weight: bold;
+    font-size: large;
+    background-color: green;
+    color: #fff;
+    cursor: pointer;
+}
+span{
+    color: red;
+    text-transform: capitalize;
+    font-size: 14px;
+    padding: 10px;
+    position: absolute;
+    right: 380px;
+    margin: -40px;
+}
+/*End Sign Up Page Style*/
