@@ -9,18 +9,15 @@ if (isset($_GET['error'])) {
     else if ($error == "empUsernameempEmail") {
         $username_err = "username is empty!!";
         $email_err = "email is empty!!";
-
     } else if ($error == "empUsernameempEmailempPass") {
         $username_err = "username is empty!!";
         $email_err = "email is empty!!";
         $pass_err = "password is empty!!";
-
     } else if ($error == "empUsernameempEmailempPassempConf_pass") {
-        $email_err = "email is empty!!";      
+        $email_err = "email is empty!!";
         $username_err = "username is empty!!";
         $pass_err = "password is empty!!";
         $conf_pass_err = "password confirm is empty";
-
     } else if ($error == "empEmail")
         $email_err = "email is empty!!";
 
@@ -31,7 +28,6 @@ if (isset($_GET['error'])) {
         $email_err = "email is empty!!";
         $pass_err = "password is empty!!";
         $conf_pass_err = "password confirm is empty";
-
     } else if ($error == "empPass")
         $pass_err = "password is empty!!";
 
@@ -45,35 +41,29 @@ if (isset($_GET['error'])) {
         $username_err = "username is empty!!";
         $pass_err = "password is empty!!";
         $conf_pass_err = "password confirm is empty";
-
     } else if ($error == "empUsernameempConf_pass") {
         $username_err = "username is empty!!";
         $conf_pass_err = "password confirm is empty";
-
     } else if ($error == "empUsernameempPass") {
         $username_err = "username is empty!!";
         $pass_err = "password is empty";
-
-    } 
-
-    else if ($error == "userExist")
+    } else if ($error == "userExist")
         $username_err = "sorry, username is already taken";
 
     else if ($error == "emailExist")
         $email_err = "sorry, email is already taken";
-        
+
     else if ($error == "invalidUsername")
         $username_err = "username should start with latter and greeter than 6 letter";
 
     else if ($error == "invalidEmail")
         $email_err = "please enter a validate email";
-        
+
     else if ($error == "invalidPass")
         $pass_err = "please enter a validate password";
 
     else if ($error == "err_conf_pass")
         $conf_pass_err = "not match";
-
 }
 ?>
 <!DOCTYPE html>

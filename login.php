@@ -46,6 +46,7 @@ if (isset($_GET['log_in_error'])) {
                         <span><?php echo $login_pass_err ?></span>
                     </div>
                     <input type="submit" value="Sign Up" name="login" class="submit">
+                    <a href="reset_request.php">do you forget password?</a>
                 </form>
             </div>
         </div>

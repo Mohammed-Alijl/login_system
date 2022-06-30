@@ -3,7 +3,6 @@
 //==FILE HAVE ALL FUNCTION TO HANDEL ERRORS IN FORMS===
 //=====================================================
 
-require("login.inc.php");
 
 /**
  * function to filter data
@@ -185,4 +184,53 @@ function initSession($connect_db, $username_email)
     $stmt->execute([$username_email, $username_email]);
     $id = $stmt->fetch(PDO::FETCH_ASSOC);
     $_SESSION['id'] = $id['user_id'];
+}
+
+/**
+ * function to remove token if exist
+ * @param object $connect_db the database connection
+ * @param string $email the email for user that will remove token for him
+ */
+function rmToken($connect_db, $email)
+{
+    $sql = "DELETE FROM reset_password WHERE email=?";
+    $stmt = $connect_db->prepare($sql);
+    if (!$stmt) {
+        header("location: ../index.php?errormsg=errorDeleteToken");
+        exit();
+    } else
+        $stmt->execute([$email]);
+}
+
+/**
+ * function to insert Token to database
+ * @param object $connect_db the database connection
+ * @param string $email the email to insert
+ * @param string $selector the selector to insert
+ * @param string $token the token to insert
+ * @param string $expire time for token
+ */
+function addToken($connect_db, $email, $selector, $token, $expire_time)
+{
+    $hash_token = password_hash($token, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO reset_password(email, pwdResetSelector, pwdResetToken, expireTokenTime) VALUES (?,?,?,?)";
+    $stmt = $connect_db->prepare($sql);
+    if (!$stmt) {
+        header("location: ../index.php?errormsg=errorAddToken");
+        exit();
+    } else {
+        $stmt->execute([$email, $selector, $hash_token, $expire_time]);
+    }
+}
+/**
+ * function to check if email is empty or not
+ * @param string $email the email will check is empty or not
+ * @return string if empty return empEmail else return empty string
+ */
+function emptyEmail($email)
+{
+    if (empty($email))
+        return "empEmail";
+    else
+        return null;
 }

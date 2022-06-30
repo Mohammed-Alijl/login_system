@@ -35,4 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['signup'])) {
         initSession($connect_db, $username);
         header("location: ../index.php");
     }
+} else {
+    header("location: ../index.php");
 }

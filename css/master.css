@@ -71,6 +71,15 @@ span{
     right: 380px;
     margin: -40px;
 }
+form a{
+    padding-left: 100px;
+    margin-top: 5px;
+}
+form p{
+    margin: 10px auto;
+    padding-left: 180px;
+    font-size: 19px;
+}
 /*End Sign Up Page Style*/
 
 /*START PROFILE PAGE STYLE*/
